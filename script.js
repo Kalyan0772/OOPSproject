@@ -1,27 +1,41 @@
+let inventory = [];
+
 function add() {
+    let pid = document.getElementById("pid").value;
+    let name = document.getElementById("name").value;
+    let price = document.getElementById("price").value;
+    let qty = document.getElementById("qty").value;
 
-let id = document.getElementById("pid").value;
-let name = document.getElementById("name").value;
-let price = document.getElementById("price").value;
-let qty = document.getElementById("qty").value;
+    if(pid=="" || name=="" || price=="" || qty==""){
+        alert("Please fill all fields");
+        return;
+    }
 
-Module.ccall(
-"addProduct",
-null,
-["number","string","number","number"],
-[id,name,price,qty]
-);
+    let product = {
+        id: pid,
+        name: name,
+        price: price,
+        qty: qty
+    };
 
-alert("Product Added");
+    inventory.push(product);
+
+    alert("Product Added!");
 }
 
 function show() {
+    let output = document.getElementById("output");
 
-Module.ccall(
-"showProducts",
-null,
-[],
-[]
-);
+    output.innerHTML = "";
 
+    for(let i=0;i<inventory.length;i++){
+        let p = inventory[i];
+
+        output.innerHTML += 
+        "ID: " + p.id + 
+        " | Name: " + p.name + 
+        " | Price: " + p.price + 
+        " | Quantity: " + p.qty + 
+        "\n";
+    }
 }
